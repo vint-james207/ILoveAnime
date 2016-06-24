@@ -26,17 +26,20 @@ public class Anime {
     @Column(nullable = false)
     LocalDateTime time;
 
+    int rating;
+
     @ManyToOne
     User user;
 
     public Anime() {
     }
 
-    public Anime(String title, String comment, LocalDateTime time, User user) {
+    public Anime(String title, String comment, LocalDateTime time, int rating, User user) {
         this.title = title;
         this.comment = comment;
         this.time = time;
         this.user = user;
+        this.rating = rating;
     }
 
     public Integer getId() {
@@ -77,5 +80,13 @@ public class Anime {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }
