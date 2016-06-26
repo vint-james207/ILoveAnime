@@ -2,15 +2,15 @@ package com.james.entities;
 
 import org.apache.tomcat.jni.Local;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
  * Created by jamesyburr on 6/24/16.
  */
+
+@Entity
+@Table(name = "animes")
 public class Anime {
 
     @Id
@@ -26,20 +26,17 @@ public class Anime {
     @Column(nullable = false)
     LocalDateTime time;
 
-    int rating;
-
     @ManyToOne
     User user;
 
     public Anime() {
     }
 
-    public Anime(String title, String comment, LocalDateTime time, int rating, User user) {
+    public Anime(String title, String comment, LocalDateTime time, User user) {
         this.title = title;
         this.comment = comment;
         this.time = time;
         this.user = user;
-        this.rating = rating;
     }
 
     public Integer getId() {
@@ -80,13 +77,5 @@ public class Anime {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 }

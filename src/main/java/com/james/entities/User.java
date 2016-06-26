@@ -1,12 +1,13 @@
 package com.james.entities;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by jamesyburr on 6/24/16.
  */
+
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id

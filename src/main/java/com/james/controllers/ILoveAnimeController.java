@@ -1,5 +1,6 @@
 package com.james.controllers;
 
+import com.james.entities.Anime;
 import com.james.entities.User;
 import com.james.services.AnimeRepository;
 import com.james.services.UserRepository;
@@ -49,6 +50,15 @@ public class ILoveAnimeController {
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
     public String logout(HttpSession session) {
         session.invalidate();
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/add-anime", method = RequestMethod.POST)
+    public String addAnime(HttpSession session, String title, String comment, String time) {
+        String username = (String) session.getAttribute("username");
+        User user = users.findByName(username);
+        Anime anime = new Anime(title, comment, LocalDateTime.parse(time), user);
+        animes.save(anime);
         return "redirect:/";
     }
 }
