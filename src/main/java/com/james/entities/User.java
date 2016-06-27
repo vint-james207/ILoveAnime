@@ -20,6 +20,9 @@ public class User {
     @Column(nullable = false)
     String password;
 
+    @Transient
+    boolean creator = false;
+
     public User() {
     }
 
@@ -50,5 +53,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isCreator() {
+        return creator;
+    }
+
+    public void setCreator(boolean creator) {
+        this.creator = creator;
     }
 }

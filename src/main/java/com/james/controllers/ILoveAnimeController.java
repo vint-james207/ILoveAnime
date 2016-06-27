@@ -29,7 +29,12 @@ public class ILoveAnimeController {
     public String home(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         model.addAttribute("username", username);
-        model.addAttribute("animes", animes.findAll());
+        Iterable<Anime> anime = animes.findAll();
+        for (Anime a : anime) {
+            boolean isCreator = a.getUser().getName().equals(username);
+            a.getUser().setCreator(isCreator);
+        }
+        model.addAttribute("animes", anime);
         model.addAttribute("now", LocalDateTime.now());
         return "home";
     }
@@ -38,7 +43,7 @@ public class ILoveAnimeController {
     public String login(HttpSession session, String username, String password) throws Exception {
         User user = users.findByName(username);
         if (user == null) {
-            user = new User(username, PasswordStorage.createHash(username));
+            user = new User(username, PasswordStorage.createHash(password));
             users.save(user);
         } else if (!PasswordStorage.verifyPassword(password, user.getPassword())) {
             throw new Exception("Incorrect password!");
@@ -63,15 +68,24 @@ public class ILoveAnimeController {
     }
 
     @RequestMapping(path = "/delete", method = RequestMethod.POST)
-    public String delete(Integer id) {
-        animes.delete(id);
+    public String delete(Integer id, HttpSession session) throws Exception {
+        Anime anime = animes.findOne(id);
+        String username = (String) session.getAttribute("username");
+        if (!anime.getUser().getName().equals(username)) {
+            throw new Exception("You can't delete this!");
+        }
+        else {
+            animes.delete(id);
+        }
         return "redirect:/";
     }
 
     @RequestMapping(path = "/editAnime", method = RequestMethod.POST)
     public String editAnime(Integer id, String title, String comment, String time) {
-        //Anime anime = new Anime(id, title, comment, LocalDateTime.parse(time));
         Anime anime = animes.findOne(id);
+        anime.setTitle(title);
+        anime.setComment(comment);
+        anime.setTime(LocalDateTime.parse(time));
         animes.save(anime);
         return "redirect:/";
     }

@@ -55,10 +55,10 @@ public class ILoveAnimeApplicationTests {
 
 		mockMvc.perform(
 				MockMvcRequestBuilders.post("/add-anime")
-				.param("Title", "Test title")
+				.param("title", "Test title")
 				.param("comment", "test comment")
 				.param("time", LocalDateTime.now().toString())
-				.sessionAttr("username", "James")
+				.sessionAttr("username", "name")
 		);
 		Assert.assertTrue(animes.count() == 1);
 	}
