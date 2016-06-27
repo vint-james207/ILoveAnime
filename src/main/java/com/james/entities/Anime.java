@@ -29,6 +29,12 @@ public class Anime {
     @ManyToOne
     User user;
 
+    public Anime( String title, String comment, LocalDateTime time) {
+        this.title = title;
+        this.comment = comment;
+        this.time = time;
+    }
+
     public Anime() {
     }
 

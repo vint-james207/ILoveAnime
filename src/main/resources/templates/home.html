@@ -34,5 +34,15 @@ Hello, {{.}}!
 {{#animes}}
 {{title}} {{comment}} {{time}} <br>
 {{/animes}}
+
+<form action="/delete" method="post" style="display: inline-block">
+    <input type="hidden" name ="id" value="{{id}}"/>
+    <button type="submit">Delete</button>
+</form>
+<form action="/editAnime" method="post" style="display: inline-block">
+    <input type="hidden" name="id" value="{{id}}"/>
+    <input type="text" name="text" placeholder="Enter message"/>
+    <button type="submit">Edit</button>
+</form>
 </body>
 </html>

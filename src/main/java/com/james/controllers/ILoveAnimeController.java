@@ -61,5 +61,18 @@ public class ILoveAnimeController {
         animes.save(anime);
         return "redirect:/";
     }
+
+    @RequestMapping(path = "/delete", method = RequestMethod.POST)
+    public String delete(Integer id) {
+        animes.delete(id);
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/editAnime", method = RequestMethod.POST)
+    public String editAnime(Integer id, String title, String comment, String time) {
+        Anime anime = new Anime(id, title, comment, LocalDateTime.parse(time));
+        animes.save(anime);
+        return "redirect:/";
+    }
 }
 
