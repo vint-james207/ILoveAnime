@@ -70,7 +70,8 @@ public class ILoveAnimeController {
 
     @RequestMapping(path = "/editAnime", method = RequestMethod.POST)
     public String editAnime(Integer id, String title, String comment, String time) {
-        Anime anime = new Anime(id, title, comment, LocalDateTime.parse(time));
+        //Anime anime = new Anime(id, title, comment, LocalDateTime.parse(time));
+        Anime anime = animes.findOne(id);
         animes.save(anime);
         return "redirect:/";
     }
